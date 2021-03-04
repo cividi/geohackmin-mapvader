@@ -32,12 +32,12 @@
     var map = L.map("mapid").setView([47.37, 8.53], 13);
     var mapvaderLight = L.mapboxGL({
       style:
-        "http://limpi.hopto.org:8000/mapvaderLight.json",
+        "https://raw.githubusercontent.com/Brieden/geohackmin-mapvader/main/mapvaderLight.json",
     }).addTo(map);
 
     var mapvaderDark = L.mapboxGL({
       style:
-        "http://limpi.hopto.org:8000/mapvaderDark.json",
+        "https://raw.githubusercontent.com/Brieden/geohackmin-mapvader/main/mapvaderDark.json",
     });
     var geoAdminDefault = L.mapboxGL({
       style:
