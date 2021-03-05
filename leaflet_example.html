@@ -33,7 +33,7 @@
     var mapvaderLight = L.mapboxGL({
       style:
         "https://raw.githubusercontent.com/cividi/geohackmin-mapvader/main/styles/mapvaderLight.json",
-    }).addTo(map);
+    });
 
     var mapvaderDark = L.mapboxGL({
       style:
@@ -43,13 +43,18 @@
       style:
         "https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte.vt/style.json",
     });
+    var gemeindescanLight = L.mapboxGL({
+      accessToken: "<YOUR MAPBOXTOKEN>",
+      style: "mapbox://styles/gemeindescan/ckc4sha4310d21iszp8ri17u2",
+    }).addTo(map);
 
     L.control
       .layers(
         {
+          "geo.admin Default": geoAdminDefault,
+          "Gemeindescan": gemeindescanLight,
           "mapvader Light": mapvaderLight,
           "mapvader Dark": mapvaderDark,
-          "geo.admin Default": geoAdminDefault,
         },
         {},
         { collapsed: false }
