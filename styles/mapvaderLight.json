@@ -78,7 +78,7 @@
           "#94A8B3",
           ["scree"],
           "rgb(0,0,0)",
-          "#D4C8B8"
+          "#A1A1A1"
         ],
         "line-opacity": [
           "interpolate",
@@ -507,7 +507,7 @@
     {
       "id": "contour_line_water",
       "type": "line",
-      "metadata": {"maputnik:comment": "color: rgb(191,138,64)"},
+      "metadata": {"maputnik:comment": "color: rgb(119, 178, 199, 1)"},
       "source": "swissmaptiles",
       "source-layer": "contour_line",
       "minzoom": 13,
@@ -515,7 +515,7 @@
       "layout": {"visibility": "visible"},
       "paint": {
         "line-blur": 0.4,
-        "line-color": "rgb(0,136,208)",
+        "line-color": "rgba(119, 178, 199, 1)",
         "line-opacity": [
           "interpolate",
           ["linear"],
@@ -743,7 +743,7 @@
         "visibility": "visible"
       },
       "paint": {
-        "text-color": "rgba(185,132,58, 1)",
+        "text-color": "#A1A1A1",
         "text-halo-blur": 0.5,
         "text-halo-color": "rgba(238, 238, 238, .8)",
         "text-halo-width": 2,
@@ -982,7 +982,7 @@
       "layout": {"visibility": "visible"},
       "paint": {
         "line-blur": 0.5,
-        "line-color": "rgba(133, 189, 224, 1)",
+        "line-color": "rgba(119, 178, 199, 1)",
         "line-opacity": [
           "interpolate",
           ["exponential", 1.5],
@@ -1162,7 +1162,10 @@
       "paint": {
         "line-blur": 1,
         "line-color": {
-          "stops": [[6, "hsl(300, 55%, 80%)"], [9, "hsl(315, 40%, 85%)"]]
+          "stops": [
+            [6, "rgba(181, 161, 181, 1)"],
+            [9, "rgba(181, 161, 181, 1)"]
+          ]
         },
         "line-opacity": {"stops": [[13, 1], [14, 0.8]]},
         "line-width": [
@@ -1234,7 +1237,7 @@
           0.4
         ],
         "line-color": {
-          "stops": [[7, "rgba(255, 50, 50, 1)"], [15, "rgba(255, 80, 80, 1)"]]
+          "stops": [[7, "rgba(0, 0, 0, 1)"], [15, "rgba(0, 0, 0, 1)"]]
         },
         "line-dasharray": {
           "stops": [
@@ -2288,9 +2291,7 @@
           18,
           0.4
         ],
-        "line-color": {
-          "stops": [[7, "rgba(255, 50, 50, 1)"], [15, "rgba(255, 80, 80, 1)"]]
-        },
+        "line-color": {"stops": [[7, "#000000"], [15, "#000000"]]},
         "line-opacity": [
           "interpolate",
           ["linear"],
@@ -2510,7 +2511,7 @@
         "text-radial-offset": 0,
         "text-rotation-alignment": "auto",
         "text-size": ["interpolate", ["linear"], ["zoom"], 14, 10.5, 18, 13],
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "icon-color": "#000000",
@@ -2973,9 +2974,7 @@
           18,
           0.4
         ],
-        "line-color": {
-          "stops": [[7, "rgba(255, 50, 50, 1)"], [15, "rgba(255, 80, 80, 1)"]]
-        },
+        "line-color": {"stops": [[7, "#000000"], [15, "#000000"]]},
         "line-opacity": [
           "interpolate",
           ["linear"],
@@ -5017,18 +5016,18 @@
         "text-optional": false,
         "text-padding": 10,
         "text-size": ["interpolate", ["linear"], ["zoom"], 13, 13, 18, 20],
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "text-color": [
           "match",
           ["get", "subclass"],
           "station",
-          "rgba(255, 50, 50, 1)",
-          "rgba(48, 48, 48, 1)"
+          "#000000",
+          "#000000"
         ],
         "text-halo-blur": 1,
-        "text-halo-color": "rgba(242, 242, 242, 0.6)",
+        "text-halo-color": "#000000",
         "text-halo-width": ["interpolate", ["linear"], ["zoom"], 14, 1, 17, 2],
         "text-opacity": 1
       }
