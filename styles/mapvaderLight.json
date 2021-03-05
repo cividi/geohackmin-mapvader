@@ -29,7 +29,7 @@
       "id": "background",
       "type": "background",
       "layout": {"visibility": "visible"},
-      "paint": {"background-color": "rgba(255, 255, 255, 1)"}
+      "paint": {"background-color": "rgba(255, 255, 255, 0.74)"}
     },
     {
       "id": "relief_shading",
@@ -37,7 +37,7 @@
       "source": "relief_shading",
       "layout": {"visibility": "visible"},
       "paint": {
-        "raster-opacity": {"stops": [[15.5, 1], [17, 0.6]]},
+        "raster-opacity": 1,
         "raster-brightness-min": [
           "interpolate",
           ["linear"],
@@ -75,10 +75,10 @@
           "match",
           ["get", "class"],
           ["ice", "water"],
-          "rgb(0,136,208)",
+          "#94A8B3",
           ["scree"],
           "rgb(0,0,0)",
-          "rgb(191,138,64)"
+          "#D4C8B8"
         ],
         "line-opacity": [
           "interpolate",
@@ -167,14 +167,14 @@
           "match",
           ["get", "class"],
           ["forest", "wood"],
-          "rgb(186, 210, 172)",
+          "#C1C7BD",
           ["ice", "glacier"],
-          "rgb(205, 232, 244)",
+          "#B5C3C9",
           ["wetland"],
-          "rgb(204, 229, 245)",
+          "#C8C6CC",
           ["sand"],
-          "rgb(240, 218, 188)",
-          "rgb(215, 224, 209)"
+          "#E3DACF",
+          "#E0E0E0"
         ],
         "fill-opacity": [
           "interpolate",
@@ -304,7 +304,7 @@
       "layout": {"visibility": "visible"},
       "paint": {
         "line-blur": 0,
-        "line-color": "rgba(48, 48, 48, 1)",
+        "line-color": "rgba(119, 178, 199, 1)",
         "line-dasharray": {
           "stops": [
             [13, [0.5, 3]],
@@ -401,14 +401,14 @@
           ["linear"],
           ["zoom"],
           10,
-          "rgba(138, 195, 229, 1)",
+          "rgba(119, 178, 199, 1)",
           16,
           [
             "match",
             ["get", "class"],
             ["river", "canal"],
-            "rgba(160, 205, 236, 1)",
-            "rgba(140, 185, 226, 1)"
+            "rgba(119, 178, 199, 1)",
+            "rgba(119, 178, 199, 1)"
           ]
         ],
         "line-offset": 0,
@@ -502,17 +502,7 @@
       "source": "swissmaptiles",
       "source-layer": "water",
       "layout": {"visibility": "visible"},
-      "paint": {
-        "fill-color": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          4,
-          "rgb(0, 0, 240)",
-          10,
-          "rgb(0, 0, 245)"
-        ]
-      }
+      "paint": {"fill-color": "rgba(119, 178, 199, 1)", "fill-opacity": 0.3}
     },
     {
       "id": "contour_line_water",
@@ -1082,6 +1072,7 @@
       "source-layer": "park",
       "minzoom": 7,
       "filter": ["all", ["in", "class", "national_park"]],
+      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "rgba(171, 197, 159, 1)",
         "line-opacity": [
@@ -2011,16 +2002,16 @@
             "match",
             ["get", "class"],
             ["motorway", "trunk"],
-            "rgb(255,230,160)",
-            "rgb(255,255,255)"
+            "#000000",
+            "#FFFFFF"
           ],
           15,
           [
             "match",
             ["get", "class"],
             ["motorway", "trunk"],
-            "rgb(255, 224, 138)",
-            "rgb(255,255,255)"
+            "#000000",
+            "#FFFFFF"
           ]
         ],
         "line-width": [
@@ -2720,34 +2711,22 @@
             "match",
             ["get", "class"],
             ["motorway", "trunk"],
-            "rgb(255,230,160)",
+            "#FFFFFF",
             ["rail", "path", "track"],
-            [
-              "match",
-              ["get", "subclass"],
-              "funicular",
-              "rgba(243,243,246,0)",
-              "rgb(243,243,246)"
-            ],
-            "rgb(255,255,255)",
-            "rgb(243,243,246)",
-            "rgb(255,255,255)"
+            ["match", ["get", "subclass"], "funicular", "#FFFFFF", "#FFFFFF"],
+            "#FFFFFF",
+            "#FFFFFF",
+            "#FFFFFF"
           ],
           15,
           [
             "match",
             ["get", "class"],
             ["motorway", "trunk"],
-            "rgb(255, 224, 138)",
+            "#FFFFFF",
             ["rail", "path", "track"],
-            [
-              "match",
-              ["get", "subclass"],
-              "funicular",
-              "rgba(243,243,246,0)",
-              "rgb(243,243,246)"
-            ],
-            "rgb(255,255,255)"
+            ["match", ["get", "subclass"], "funicular", "#FFFFFF", "#FFFFFF"],
+            "#FFFFFF"
           ]
         ],
         "line-opacity": 1,
@@ -3782,7 +3761,8 @@
             12,
             ["match", ["get", "class"], ["river", "canal"], 18, 14]
           ]
-        ]
+        ],
+        "visibility": "visible"
       },
       "paint": {
         "text-color": [
@@ -3996,7 +3976,7 @@
         "text-pitch-alignment": "viewport",
         "text-rotation-alignment": "viewport",
         "text-size": 10.5,
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "icon-opacity": 1,
@@ -4183,7 +4163,7 @@
         "text-optional": false,
         "text-padding": 2,
         "text-size": ["interpolate", ["linear"], ["zoom"], 14, 12, 18, 18],
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "icon-opacity": ["case", ["has", "name"], 1, 0],
@@ -4356,7 +4336,7 @@
         ],
         "text-optional": true,
         "text-size": ["interpolate", ["linear"], ["zoom"], 14, 12, 18, 18],
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "icon-opacity": [
