@@ -29,7 +29,7 @@
       "id": "background",
       "type": "background",
       "layout": {"visibility": "visible"},
-      "paint": {"background-color": "rgba(255, 255, 255, 1)"}
+      "paint": {"background-color": "rgba(255, 255, 255, 0.74)"}
     },
     {
       "id": "relief_shading",
@@ -37,7 +37,7 @@
       "source": "relief_shading",
       "layout": {"visibility": "visible"},
       "paint": {
-        "raster-opacity": {"stops": [[15.5, 1], [17, 0.6]]},
+        "raster-opacity": 1,
         "raster-brightness-min": [
           "interpolate",
           ["linear"],
@@ -75,10 +75,10 @@
           "match",
           ["get", "class"],
           ["ice", "water"],
-          "rgb(0,136,208)",
+          "#94A8B3",
           ["scree"],
           "rgb(0,0,0)",
-          "rgb(191,138,64)"
+          "#A1A1A1"
         ],
         "line-opacity": [
           "interpolate",
@@ -167,14 +167,14 @@
           "match",
           ["get", "class"],
           ["forest", "wood"],
-          "rgb(186, 210, 172)",
+          "#C1C7BD",
           ["ice", "glacier"],
-          "rgb(205, 232, 244)",
+          "#B5C3C9",
           ["wetland"],
-          "rgb(204, 229, 245)",
+          "#C8C6CC",
           ["sand"],
-          "rgb(240, 218, 188)",
-          "rgb(215, 224, 209)"
+          "#E3DACF",
+          "#E0E0E0"
         ],
         "fill-opacity": [
           "interpolate",
@@ -304,7 +304,7 @@
       "layout": {"visibility": "visible"},
       "paint": {
         "line-blur": 0,
-        "line-color": "rgba(48, 48, 48, 1)",
+        "line-color": "rgba(119, 178, 199, 1)",
         "line-dasharray": {
           "stops": [
             [13, [0.5, 3]],
@@ -401,14 +401,14 @@
           ["linear"],
           ["zoom"],
           10,
-          "rgba(138, 195, 229, 1)",
+          "rgba(119, 178, 199, 1)",
           16,
           [
             "match",
             ["get", "class"],
             ["river", "canal"],
-            "rgba(160, 205, 236, 1)",
-            "rgba(140, 185, 226, 1)"
+            "rgba(119, 178, 199, 1)",
+            "rgba(119, 178, 199, 1)"
           ]
         ],
         "line-offset": 0,
@@ -502,22 +502,12 @@
       "source": "swissmaptiles",
       "source-layer": "water",
       "layout": {"visibility": "visible"},
-      "paint": {
-        "fill-color": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          4,
-          "rgb(0, 0, 240)",
-          10,
-          "rgb(0, 0, 245)"
-        ]
-      }
+      "paint": {"fill-color": "rgba(119, 178, 199, 1)", "fill-opacity": 0.3}
     },
     {
       "id": "contour_line_water",
       "type": "line",
-      "metadata": {"maputnik:comment": "color: rgb(191,138,64)"},
+      "metadata": {"maputnik:comment": "color: rgb(119, 178, 199, 1)"},
       "source": "swissmaptiles",
       "source-layer": "contour_line",
       "minzoom": 13,
@@ -525,7 +515,7 @@
       "layout": {"visibility": "visible"},
       "paint": {
         "line-blur": 0.4,
-        "line-color": "rgb(0,136,208)",
+        "line-color": "rgba(119, 178, 199, 1)",
         "line-opacity": [
           "interpolate",
           ["linear"],
@@ -753,7 +743,7 @@
         "visibility": "visible"
       },
       "paint": {
-        "text-color": "rgba(185,132,58, 1)",
+        "text-color": "#A1A1A1",
         "text-halo-blur": 0.5,
         "text-halo-color": "rgba(238, 238, 238, .8)",
         "text-halo-width": 2,
@@ -992,7 +982,7 @@
       "layout": {"visibility": "visible"},
       "paint": {
         "line-blur": 0.5,
-        "line-color": "rgba(133, 189, 224, 1)",
+        "line-color": "rgba(119, 178, 199, 1)",
         "line-opacity": [
           "interpolate",
           ["exponential", 1.5],
@@ -1082,6 +1072,7 @@
       "source-layer": "park",
       "minzoom": 7,
       "filter": ["all", ["in", "class", "national_park"]],
+      "layout": {"visibility": "visible"},
       "paint": {
         "line-color": "rgba(171, 197, 159, 1)",
         "line-opacity": [
@@ -1171,7 +1162,10 @@
       "paint": {
         "line-blur": 1,
         "line-color": {
-          "stops": [[6, "hsl(300, 55%, 80%)"], [9, "hsl(315, 40%, 85%)"]]
+          "stops": [
+            [6, "rgba(181, 161, 181, 1)"],
+            [9, "rgba(181, 161, 181, 1)"]
+          ]
         },
         "line-opacity": {"stops": [[13, 1], [14, 0.8]]},
         "line-width": [
@@ -1243,7 +1237,7 @@
           0.4
         ],
         "line-color": {
-          "stops": [[7, "rgba(255, 50, 50, 1)"], [15, "rgba(255, 80, 80, 1)"]]
+          "stops": [[7, "rgba(0, 0, 0, 1)"], [15, "rgba(0, 0, 0, 1)"]]
         },
         "line-dasharray": {
           "stops": [
@@ -2011,16 +2005,16 @@
             "match",
             ["get", "class"],
             ["motorway", "trunk"],
-            "rgb(255,230,160)",
-            "rgb(255,255,255)"
+            "#000000",
+            "#FFFFFF"
           ],
           15,
           [
             "match",
             ["get", "class"],
             ["motorway", "trunk"],
-            "rgb(255, 224, 138)",
-            "rgb(255,255,255)"
+            "#000000",
+            "#FFFFFF"
           ]
         ],
         "line-width": [
@@ -2297,9 +2291,7 @@
           18,
           0.4
         ],
-        "line-color": {
-          "stops": [[7, "rgba(255, 50, 50, 1)"], [15, "rgba(255, 80, 80, 1)"]]
-        },
+        "line-color": {"stops": [[7, "#000000"], [15, "#000000"]]},
         "line-opacity": [
           "interpolate",
           ["linear"],
@@ -2519,7 +2511,7 @@
         "text-radial-offset": 0,
         "text-rotation-alignment": "auto",
         "text-size": ["interpolate", ["linear"], ["zoom"], 14, 10.5, 18, 13],
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "icon-color": "#000000",
@@ -2720,34 +2712,22 @@
             "match",
             ["get", "class"],
             ["motorway", "trunk"],
-            "rgb(255,230,160)",
+            "#FFFFFF",
             ["rail", "path", "track"],
-            [
-              "match",
-              ["get", "subclass"],
-              "funicular",
-              "rgba(243,243,246,0)",
-              "rgb(243,243,246)"
-            ],
-            "rgb(255,255,255)",
-            "rgb(243,243,246)",
-            "rgb(255,255,255)"
+            ["match", ["get", "subclass"], "funicular", "#FFFFFF", "#FFFFFF"],
+            "#FFFFFF",
+            "#FFFFFF",
+            "#FFFFFF"
           ],
           15,
           [
             "match",
             ["get", "class"],
             ["motorway", "trunk"],
-            "rgb(255, 224, 138)",
+            "#FFFFFF",
             ["rail", "path", "track"],
-            [
-              "match",
-              ["get", "subclass"],
-              "funicular",
-              "rgba(243,243,246,0)",
-              "rgb(243,243,246)"
-            ],
-            "rgb(255,255,255)"
+            ["match", ["get", "subclass"], "funicular", "#FFFFFF", "#FFFFFF"],
+            "#FFFFFF"
           ]
         ],
         "line-opacity": 1,
@@ -2994,9 +2974,7 @@
           18,
           0.4
         ],
-        "line-color": {
-          "stops": [[7, "rgba(255, 50, 50, 1)"], [15, "rgba(255, 80, 80, 1)"]]
-        },
+        "line-color": {"stops": [[7, "#000000"], [15, "#000000"]]},
         "line-opacity": [
           "interpolate",
           ["linear"],
@@ -3782,7 +3760,8 @@
             12,
             ["match", ["get", "class"], ["river", "canal"], 18, 14]
           ]
-        ]
+        ],
+        "visibility": "visible"
       },
       "paint": {
         "text-color": [
@@ -3996,7 +3975,7 @@
         "text-pitch-alignment": "viewport",
         "text-rotation-alignment": "viewport",
         "text-size": 10.5,
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "icon-opacity": 1,
@@ -4183,7 +4162,7 @@
         "text-optional": false,
         "text-padding": 2,
         "text-size": ["interpolate", ["linear"], ["zoom"], 14, 12, 18, 18],
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "icon-opacity": ["case", ["has", "name"], 1, 0],
@@ -4356,7 +4335,7 @@
         ],
         "text-optional": true,
         "text-size": ["interpolate", ["linear"], ["zoom"], 14, 12, 18, 18],
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "icon-opacity": [
@@ -5037,18 +5016,18 @@
         "text-optional": false,
         "text-padding": 10,
         "text-size": ["interpolate", ["linear"], ["zoom"], 13, 13, 18, 20],
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "text-color": [
           "match",
           ["get", "subclass"],
           "station",
-          "rgba(255, 50, 50, 1)",
-          "rgba(48, 48, 48, 1)"
+          "#000000",
+          "#000000"
         ],
         "text-halo-blur": 1,
-        "text-halo-color": "rgba(242, 242, 242, 0.6)",
+        "text-halo-color": "#000000",
         "text-halo-width": ["interpolate", ["linear"], ["zoom"], 14, 1, 17, 2],
         "text-opacity": 1
       }
