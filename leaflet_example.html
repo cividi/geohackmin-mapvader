@@ -43,6 +43,8 @@
     ></div>
     <script src="leaflet-mapbox-gl.js"></script>
     <script src="overlay-data/work_diversity.js"></script>
+    <script src="overlay-data/figure_ground.js"></script>
+
     <script>
       var map = L.map("mapid").setView([47.37, 8.53], 13);
       var mapvaderLight = L.mapboxGL({
@@ -75,6 +77,19 @@
           });
         },
       });
+      //{ "type": "Feature", "properties": { "fill": "#000000", "fill-opacity": "1", "stroke-opacity": "0", "stroke": "#000000", "stroke-width": "0" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 8.54989, 47.36703 ], [ 8.54987, 47.36702 ], [ 8.54985, 47.36704 ], [ 8.54987, 47.36705 ], [ 8.54989, 47.36703 ] ] ] } },
+
+      var figure_ground_Layer = L.geoJson(figure_ground, {
+        style: function (feature) {
+          return {
+            color: feature.properties["fill"],
+            fillOpacity: feature.properties["fill-opacity"],
+            opacity: feature.properties["stroke-opacity"],
+            stroke: feature.properties["stroke"],
+            weight: feature.properties["stroke-width"],
+          };
+        },
+      });
 
       L.control
         .layers(
@@ -83,7 +98,10 @@
             "mapvader Dark": mapvaderDark,
             "geo.admin Default": geoAdminDefault,
           },
-          { Arbeitsplatzdiversität: work_diversity_Layer },
+          {
+            Arbeitsplatzdiversität: work_diversity_Layer,
+            Gebäude: figure_ground_Layer,
+          },
           { collapsed: false }
         )
         .addTo(map);
