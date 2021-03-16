@@ -41,70 +41,130 @@
       id="mapid"
       style="position: absolute; top: 0; bottom: 0; right: 0; left: 0"
     ></div>
-    <script src="leaflet-mapbox-gl.js"></script>
-    <script src="overlay-data/work_diversity.js"></script>
-    <script src="overlay-data/figure_ground.js"></script>
+    <script src="js/leaflet-mapbox-gl.js"></script>
+    <script src="js/js-yaml.min.js"></script>
 
     <script>
-      var map = L.map("mapid").setView([47.37, 8.53], 13);
-      var mapvaderLight = L.mapboxGL({
-        style:
-          "https://raw.githubusercontent.com/cividi/geohackmin-mapvader/main/styles/mapvaderLight.json",
-      }).addTo(map);
 
-      var mapvaderDark = L.mapboxGL({
-        style:
-          "https://raw.githubusercontent.com/cividi/geohackmin-mapvader/main/styles/mapvaderDark.json",
-      });
-      var geoAdminDefault = L.mapboxGL({
-        style:
-          "https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte.vt/style.json",
-      });
+      fetch('config.yaml')
+        .then(function (response) {
+          return response.text();
+        })
+        .then(function (data){
+          const cnf = jsyaml.load(data);
+          console.log(cnf);
+          const presetStyle = getUrlParam("style","");
+          const presetOverlay = getUrlParam("overlay","");
+          setupMap(cnf, presets={style: presetStyle, overlay: presetOverlay});
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+      
+      function setupMap(cnf, presets){
+        var map = L.map("mapid").setView([47.38, 8.54], 14);
+        
+        var styles = {}
+        var layers = {}
 
-      L.marker([47.3836, 8.4966])
+        cnf.styles.forEach(style => {
+          styles[style.title] = L.mapboxGL({style:style.path})
+        });
+
+        var overlays = {}
+
+        waiting = cnf.overlays.length;
+
+        cnf.overlays.forEach(overlay => {
+          fetch(overlay.path)
+            .then(response => response.json())
+            .then(function (data) {
+              overlays[overlay.title] = loadLayer(overlay.mediatype, data);
+              done();
+            })
+            .catch(function (error) { console.log(error)});
+        });
+        function done() {
+          waiting--;
+          if (waiting==0) {
+            console.log(overlays);
+
+            L.control
+              .layers(
+                styles,
+                overlays,
+                { collapsed: false }
+              )
+              .addTo(map);
+            
+              if(presets.overlay !== ""){
+                overlays[presets.overlay].addTo(map)
+              }
+          } 
+        };
+
+        console.log(styles);
+        
+        if(presets.style === ""){
+          styles[cnf.styles[0].title].addTo(map)
+        }
+        else {
+          styles[presets.style].addTo(map)
+        }
+
+        L.marker([47.3836, 8.4966])
         .addTo(map)
         .bindPopup('<a href="https://cividi.ch/">cividi <br> visit us</a>');
+      }
 
-      var work_diversity_Layer = L.geoJson(work_diversity, {
-        pointToLayer: function (feature, latlng) {
-          return L.circle(latlng, {
-            radius: feature.properties.radius,
-            fillColor: feature.properties.fillColor,
-            fillOpacity: feature.properties.fillOpacity,
-            stroke: feature.properties.stroke,
-            color: feature.properties.color,
-            weight: feature.properties.weight,
+      function loadLayer(mediatype, data) {
+        if(mediatype == "application/geo+json"){
+          console.log("Loading SimpleStyle GeoJSON");
+          return L.geoJson(data, {
+            style: function (feature) {
+              return {
+                color: feature.properties["fill"],
+                fillOpacity: feature.properties["fill-opacity"],
+                opacity: feature.properties["stroke-opacity"],
+                stroke: feature.properties["stroke"],
+                weight: feature.properties["stroke-width"],
+              };
+            },
           });
-        },
-      });
-      //{ "type": "Feature", "properties": { "fill": "#000000", "fill-opacity": "1", "stroke-opacity": "0", "stroke": "#000000", "stroke-width": "0" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 8.54989, 47.36703 ], [ 8.54987, 47.36702 ], [ 8.54985, 47.36704 ], [ 8.54987, 47.36705 ], [ 8.54989, 47.36703 ] ] ] } },
+        } else if(mediatype == "application/vnd.simplestyles-extended") {
+          console.log("Loading SimpleStyle Extended GeoJSON");
+          return L.geoJson(data, {
+            pointToLayer: function (feature, latlng) {
+              return L.circle(latlng, {
+                radius: feature.properties.radius,
+                fillColor: feature.properties.fillColor,
+                fillOpacity: feature.properties.fillOpacity,
+                stroke: feature.properties.stroke,
+                color: feature.properties.color,
+                weight: feature.properties.weight,
+              });
+            },
+          });
+        }
+      }
 
-      var figure_ground_Layer = L.geoJson(figure_ground, {
-        style: function (feature) {
-          return {
-            color: feature.properties["fill"],
-            fillOpacity: feature.properties["fill-opacity"],
-            opacity: feature.properties["stroke-opacity"],
-            stroke: feature.properties["stroke"],
-            weight: feature.properties["stroke-width"],
-          };
-        },
-      });
+      function getUrlVars() {
+          var vars = {};
+          var parts = decodeURI(window.location.href).replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+              vars[key] = value;
+          });
+          return vars;
+      }
 
-      L.control
-        .layers(
-          {
-            "mapvader Light": mapvaderLight,
-            "mapvader Dark": mapvaderDark,
-            "geo.admin Default": geoAdminDefault,
-          },
-          {
-            Arbeitsplatzdiversität: work_diversity_Layer,
-            Gebäude: figure_ground_Layer,
-          },
-          { collapsed: false }
-        )
-        .addTo(map);
+      function getUrlParam(parameter, defaultvalue){
+        var urlparameter = defaultvalue;
+        if(window.location.href.indexOf(parameter) > -1){
+            urlparameter = getUrlVars()[parameter];
+            }
+        return urlparameter;
+      }
+
+
     </script>
   </body>
 </html>
