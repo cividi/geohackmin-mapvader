@@ -1,66 +1,170 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>mapvader Demo</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="docs/images/favicon.ico"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
+    <link
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.js"></script>
+  </head>
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
 
-<head>
-  <title>mapvader Demo</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-    crossorigin="" />
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin=""></script>
-  <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.css" rel="stylesheet" />
-  <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.js"></script>
-</head>
-<style>
-  html,
-  body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-</style>
+  <body>
+    <div
+      id="mapid"
+      style="position: absolute; top: 0; bottom: 0; right: 0; left: 0"
+    ></div>
+    <script src="js/leaflet-mapbox-gl.js"></script>
+    <script src="js/js-yaml.min.js"></script>
 
-<body>
-  <div id="mapid" style="position: absolute; top: 0; bottom: 0; right: 0; left: 0"></div>
-  <script src="leaflet-mapbox-gl.js"></script>
-  <script>
-    var map = L.map("mapid").setView([47.37, 8.53], 13);
-    var mapvaderLight = L.mapboxGL({
-      style:
-        "https://raw.githubusercontent.com/cividi/geohackmin-mapvader/main/styles/mapvaderLight.json",
-    }).addTo(map);
+    <script>
 
-    var mapvaderDark = L.mapboxGL({
-      style:
-        "https://raw.githubusercontent.com/cividi/geohackmin-mapvader/main/styles/mapvaderDark.json",
-    });
-    var geoAdminDefault = L.mapboxGL({
-      style:
-        "https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte.vt/style.json",
-    });
+      fetch('config.yaml')
+        .then(function (response) {
+          return response.text();
+        })
+        .then(function (data){
+          const cnf = jsyaml.load(data);
+          console.log(cnf);
+          const presetStyle = getUrlParam("style","");
+          const presetOverlay = getUrlParam("overlay","");
+          setupMap(cnf, presets={style: presetStyle, overlay: presetOverlay});
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+      
+      function setupMap(cnf, presets){
+        var map = L.map("mapid").setView([47.38, 8.54], 14);
+        
+        var styles = {}
+        var layers = {}
 
-    L.control
-      .layers(
-        {
-          "mapvader Light": mapvaderLight,
-          "mapvader Dark": mapvaderDark,
-          "geo.admin Default": geoAdminDefault,
-        },
-        {},
-        { collapsed: false }
-      )
-      .addTo(map);
+        cnf.styles.forEach(style => {
+          styles[style.title] = L.mapboxGL({style:style.path})
+        });
 
-    L.marker([47.3836, 8.4966])
-      .addTo(map)
-      .bindPopup('<a href="https://cividi.ch/">cividi <br> visit us</a>');
+        var overlays = {}
 
-  </script>
-</body>
+        waiting = cnf.overlays.length;
 
+        cnf.overlays.forEach(overlay => {
+          fetch(overlay.path)
+            .then(response => response.json())
+            .then(function (data) {
+              overlays[overlay.title] = loadLayer(overlay.mediatype, data);
+              done();
+            })
+            .catch(function (error) { console.log(error)});
+        });
+        function done() {
+          waiting--;
+          if (waiting==0) {
+            console.log(overlays);
+
+            L.control
+              .layers(
+                styles,
+                overlays,
+                { collapsed: false }
+              )
+              .addTo(map);
+            
+              if(presets.overlay !== ""){
+                overlays[presets.overlay].addTo(map)
+              }
+          } 
+        };
+
+        console.log(styles);
+        
+        if(presets.style === ""){
+          styles[cnf.styles[0].title].addTo(map)
+        }
+        else {
+          styles[presets.style].addTo(map)
+        }
+
+        L.marker([47.3836, 8.4966])
+        .addTo(map)
+        .bindPopup('<a href="https://cividi.ch/">cividi <br> visit us</a>');
+      }
+
+      function loadLayer(mediatype, data) {
+        if(mediatype == "application/geo+json"){
+          console.log("Loading SimpleStyle GeoJSON");
+          return L.geoJson(data, {
+            style: function (feature) {
+              return {
+                color: feature.properties["fill"],
+                fillOpacity: feature.properties["fill-opacity"],
+                opacity: feature.properties["stroke-opacity"],
+                stroke: feature.properties["stroke"],
+                weight: feature.properties["stroke-width"],
+              };
+            },
+          });
+        } else if(mediatype == "application/vnd.simplestyles-extended") {
+          console.log("Loading SimpleStyle Extended GeoJSON");
+          return L.geoJson(data, {
+            pointToLayer: function (feature, latlng) {
+              return L.circle(latlng, {
+                radius: feature.properties.radius,
+                fillColor: feature.properties.fillColor,
+                fillOpacity: feature.properties.fillOpacity,
+                stroke: feature.properties.stroke,
+                color: feature.properties.color,
+                weight: feature.properties.weight,
+              });
+            },
+          });
+        }
+      }
+
+      function getUrlVars() {
+          var vars = {};
+          var parts = decodeURI(window.location.href).replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+              vars[key] = value;
+          });
+          return vars;
+      }
+
+      function getUrlParam(parameter, defaultvalue){
+        var urlparameter = defaultvalue;
+        if(window.location.href.indexOf(parameter) > -1){
+            urlparameter = getUrlVars()[parameter];
+            }
+        return urlparameter;
+      }
+
+
+    </script>
+  </body>
 </html>

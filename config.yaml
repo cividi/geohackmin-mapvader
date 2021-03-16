@@ -1,0 +1,19 @@
+styles:
+  -
+    title: MapVader Light
+    path: styles/mapvaderLight.json
+  -
+    title: MapVader Dufour
+    path: styles/mapvaderDufour.json
+  - 
+    title: Official Geo Admin Style
+    path: https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte.vt/style.json
+overlays:
+  -
+    title: Arbeitsplatzdiversität
+    mediatype: application/vnd.simplestyles-extended
+    path: overlay-data/work_diversity.json
+  -
+    title: Gebäude
+    mediatype: application/geo+json
+    path: overlay-data/figure_ground.json
