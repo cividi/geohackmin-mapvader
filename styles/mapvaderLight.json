@@ -26,25 +26,18 @@
   "transition": {},
   "layers": [
     {
-      "id": "background",
-      "type": "background",
-      "layout": {"visibility": "visible"},
-      "paint": {"background-color": "rgba(255, 255, 255, 0.74)"}
-    },
-    {
       "id": "relief_shading",
       "type": "raster",
       "source": "relief_shading",
       "layout": {"visibility": "visible"},
       "paint": {
-        "raster-opacity": 1,
         "raster-brightness-min": [
           "interpolate",
           ["linear"],
           ["zoom"],
-          6,
+          19,
           0,
-          12,
+          20,
           0.25
         ],
         "raster-saturation": [
@@ -57,7 +50,17 @@
           -0.2
         ],
         "raster-contrast": ["interpolate", ["linear"], ["zoom"], 6, 0.1, 12, 0],
-        "raster-resampling": "nearest"
+        "raster-resampling": "nearest",
+        "raster-opacity": 1
+      }
+    },
+    {
+      "id": "background",
+      "type": "background",
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "background-color": "rgba(140, 140, 140, 1)",
+        "background-opacity": 0.2
       }
     },
     {
@@ -167,27 +170,25 @@
           "match",
           ["get", "class"],
           ["forest", "wood"],
-          "#E6EBE4",
+          "#C2C4C0",
           ["ice", "glacier"],
           "#CCD9DE",
           ["wetland"],
-          "#DED6CC",
+          "#CCD9DE",
           ["sand"],
           "#E3DECC",
           "#E0E0E0"
         ],
         "fill-opacity": [
           "interpolate",
-          ["exponential", 1.5],
+          ["exponential", 1],
           ["zoom"],
           5,
           0,
           6,
-          ["match", ["get", "class"], ["ice", "glacier"], 0.3, 0],
-          10,
           ["match", ["get", "class"], ["ice", "glacier"], 0.2, 0],
           11,
-          ["match", ["get", "class"], ["ice", "glacier"], 0.2, 0.3],
+          ["match", ["get", "class"], ["ice", "glacier"], 0.2, 0.1],
           14,
           ["match", ["get", "class"], ["ice", "glacier"], 0, 0.3]
         ]
@@ -217,7 +218,7 @@
       "layout": {"visibility": "visible"},
       "paint": {
         "line-blur": 0.5,
-        "line-color": "rgb(186, 199, 172)",
+        "line-color": "rgba(210, 210, 210, 1)",
         "line-opacity": [
           "interpolate",
           ["exponential", 1.5],
@@ -266,7 +267,7 @@
           "rgb(255, 255, 255)",
           "rgb(215, 224, 209)"
         ],
-        "fill-opacity": ["match", ["get", "class"], ["pitch"], 1, 0.3]
+        "fill-opacity": ["match", ["get", "class"], ["pitch"], 0.6, 0.2]
       }
     },
     {
@@ -504,7 +505,7 @@
       "source": "swissmaptiles",
       "source-layer": "water",
       "layout": {"visibility": "visible"},
-      "paint": {"fill-color": "rgba(119, 178, 199, 1)", "fill-opacity": 0.3}
+      "paint": {"fill-color": "rgba(215, 222, 227, 1)", "fill-opacity": 1}
     },
     {
       "id": "contour_line_water",
@@ -517,7 +518,7 @@
       "layout": {"visibility": "visible"},
       "paint": {
         "line-blur": 0.4,
-        "line-color": "rgba(119, 178, 199, 1)",
+        "line-color": "rgba(215, 222, 227, 1)",
         "line-opacity": [
           "interpolate",
           ["linear"],
@@ -682,7 +683,7 @@
         "visibility": "visible"
       },
       "paint": {
-        "text-color": "rgba(0,136,208, 1)",
+        "text-color": "rgba(187, 207, 233, 1)",
         "text-halo-blur": 0.5,
         "text-halo-color": "rgba(238, 238, 238, .8)",
         "text-halo-width": 2,
@@ -885,7 +886,7 @@
         "visibility": "visible"
       },
       "paint": {
-        "text-color": "rgba(0,136,208, 1)",
+        "text-color": "rgba(187, 207, 233, 1)",
         "text-halo-blur": 0.5,
         "text-halo-color": "rgba(238, 238, 238, 0.8)",
         "text-halo-width": 2,
@@ -984,7 +985,7 @@
       "layout": {"visibility": "visible"},
       "paint": {
         "line-blur": 0.5,
-        "line-color": "rgba(206, 218, 222, 1)",
+        "line-color": "rgba(189, 193, 225, 1)",
         "line-opacity": [
           "interpolate",
           ["exponential", 1.5],
@@ -1163,7 +1164,12 @@
       },
       "paint": {
         "line-blur": 1,
-        "line-color": {"stops": [[6, "#A69AA6"], [9, "#A69AA6"]]},
+        "line-color": {
+          "stops": [
+            [6, "rgba(224, 220, 224, 1)"],
+            [9, "rgba(224, 220, 224, 1)"]
+          ]
+        },
         "line-opacity": {"stops": [[13, 1], [14, 0.8]]},
         "line-width": [
           "interpolate",
@@ -1234,7 +1240,7 @@
           0.4
         ],
         "line-color": {
-          "stops": [[7, "rgba(0, 0, 0, 1)"], [15, "rgba(0, 0, 0, 1)"]]
+          "stops": [[5, "rgba(0, 0, 0, 1)"], [12, "rgba(137, 137, 137, 1)"]]
         },
         "line-dasharray": {
           "stops": [
@@ -1701,7 +1707,7 @@
       },
       "paint": {
         "line-blur": {"stops": [[15, 0.1], [20, 0.4]]},
-        "line-color": "rgba(115, 115, 115, 1)",
+        "line-color": "rgba(137, 137, 137, 1)",
         "line-dasharray": {
           "stops": [
             [14, [3, 1]],
@@ -1794,16 +1800,16 @@
             "match",
             ["get", "class"],
             ["motorway", "trunk"],
-            "#A1A1A1",
-            "#A1A1A1"
+            "#FFFFFF",
+            "#FFFFFF"
           ],
           15,
           [
             "match",
             ["get", "class"],
             ["motorway", "trunk"],
-            "#A1A1A1",
-            "#A1A1A1"
+            "#FFFFFF",
+            "#FFFFFF"
           ]
         ],
         "line-offset": 0,
@@ -2226,7 +2232,7 @@
       "layout": {"visibility": "visible"},
       "paint": {
         "line-blur": 0.4,
-        "line-color": "rgba(105, 187, 218, 1)",
+        "line-color": "rgba(197, 204, 255, 1)",
         "line-dasharray": {
           "stops": [
             [12, [3, 1]],
@@ -2288,7 +2294,7 @@
           18,
           0.4
         ],
-        "line-color": {"stops": [[7, "#000000"], [15, "#000000"]]},
+        "line-color": {"stops": [[5, "#000000"], [12, "#898989"]]},
         "line-opacity": [
           "interpolate",
           ["linear"],
@@ -2971,7 +2977,7 @@
           18,
           0.4
         ],
-        "line-color": {"stops": [[7, "#000000"], [15, "#000000"]]},
+        "line-color": {"stops": [[5, "#000000"], [12, "#898989"]]},
         "line-opacity": [
           "interpolate",
           ["linear"],
@@ -3640,11 +3646,11 @@
         "visibility": "visible"
       },
       "paint": {
-        "icon-color": "#000000",
+        "icon-color": "#8",
         "icon-opacity": 0.8,
-        "text-color": "rgba(80, 80, 80, 1)",
+        "text-color": "rgba(137, 137, 137, 1)",
         "text-halo-blur": 1,
-        "text-halo-color": "rgba(242, 242, 242, 0.6)",
+        "text-halo-color": "rgba(172, 172, 172, 0.1)",
         "text-halo-width": [
           "interpolate",
           ["linear"],
@@ -3680,9 +3686,9 @@
         "visibility": "visible"
       },
       "paint": {
-        "text-color": "rgba(20, 136, 205, 1)",
+        "text-color": "rgba(133, 141, 156, 0.7)",
         "text-halo-blur": 1,
-        "text-halo-color": "rgba(242, 242, 242, 0.7)",
+        "text-halo-color": "rgba(172, 172, 172, 0.1)",
         "text-halo-width": 1
       }
     },
@@ -3753,12 +3759,12 @@
           "match",
           ["get", "intermittent"],
           1,
-          "rgba(119, 178, 199, 1)",
-          "rgba(119, 178, 199, 1)"
+          "#BBCFE9",
+          "#BBCFE9"
         ],
         "text-halo-blur": 1,
-        "text-halo-color": "rgba(242, 242, 242, 0.6)",
-        "text-halo-width": 2
+        "text-halo-color": "rgba(133, 141, 156, 0.7)",
+        "text-halo-width": 0
       }
     },
     {
@@ -3808,8 +3814,8 @@
           "match",
           ["get", "class"],
           ["rail", "transit", "cable_car", "gondola", "chair_lift"],
-          "#000000",
-          "#000000"
+          "#898989",
+          "#898989"
         ],
         "text-halo-blur": 0.2,
         "text-halo-color": [
@@ -3824,8 +3830,8 @@
             "motorway",
             "trunk"
           ],
-          "rgba(255, 255, 255, 0.6)",
-          "rgba(255, 255, 255, 0.8)"
+          "rgba(172, 172, 172, 0.1)",
+          "rgba(172, 172, 172, 0.1)"
         ],
         "text-halo-width": [
           "interpolate",
@@ -3997,7 +4003,7 @@
         "text-size": ["interpolate", ["linear"], ["zoom"], 10, 11, 16, 20]
       },
       "paint": {
-        "text-color": "rgba(55, 146, 201, 1)",
+        "text-color": "rgba(187, 207, 233, 1)",
         "text-halo-blur": 1,
         "text-halo-color": "rgba(242, 242, 242, 0.6)",
         "text-halo-width": 1
@@ -4031,9 +4037,9 @@
         "text-size": ["interpolate", ["linear"], ["zoom"], 10, 11, 16, 20]
       },
       "paint": {
-        "text-color": "rgba(55, 146, 201, 1)",
+        "text-color": "rgba(172, 172, 172, 1)",
         "text-halo-blur": 1,
-        "text-halo-color": "rgba(242, 242, 242, 0.6)",
+        "text-halo-color": "rgba(172, 172, 172, 0.1)",
         "text-halo-width": 1
       }
     },
@@ -4667,11 +4673,11 @@
           ["zoom"],
           "",
           10,
-          "dot_dark_grey_4",
+          "dot_dark_grey_2",
           14,
-          "dot_dark_grey_6",
+          "dot_dark_grey_4",
           18,
-          "dot_dark_grey_8"
+          "dot_dark_grey_6"
         ],
         "icon-offset": [0, 0],
         "icon-optional": false,
@@ -4732,12 +4738,12 @@
         "visibility": "visible"
       },
       "paint": {
-        "icon-color": "rgba(0, 0, 0, 1)",
+        "icon-color": "rgba(137, 137, 137, 1)",
         "icon-halo-blur": 0,
-        "icon-halo-color": "rgba(255, 255, 255, 1)",
+        "icon-halo-color": "rgba(172, 172, 172, 0.1)",
         "icon-halo-width": 0,
         "icon-opacity": 1,
-        "text-color": "rgba(48, 48, 48, 1)",
+        "text-color": "rgba(137, 137, 137, 1)",
         "text-halo-blur": 1,
         "text-halo-color": "rgba(242, 242, 242, 0.6)",
         "text-halo-width": [
@@ -4848,7 +4854,7 @@
           10,
           1
         ],
-        "text-color": "rgba(48, 48, 48, 1)",
+        "text-color": "rgba(137, 137, 136, 1)",
         "text-halo-blur": 1,
         "text-halo-color": "rgba(242, 242, 242, 0.6)",
         "text-halo-width": [
@@ -5077,9 +5083,9 @@
           14,
           0
         ],
-        "text-color": "rgba(64, 64, 64, 1)",
+        "text-color": "rgba(137, 137, 137, 1)",
         "text-halo-blur": 1,
-        "text-halo-color": "rgba(242, 242, 242, 0.6)",
+        "text-halo-color": "rgba(172, 172, 172, 0.1)",
         "text-halo-width": [
           "interpolate",
           ["cubic-bezier", 0, 0.75, 0.25, 1],
@@ -5153,7 +5159,7 @@
       },
       "paint": {
         "icon-opacity": ["step", ["zoom"], 1, 13, 0],
-        "text-color": "rgba(64, 64, 64, 1)",
+        "text-color": "rgba(0, 0, 0, 1)",
         "text-halo-blur": 1,
         "text-halo-color": "rgba(242, 242, 242, 0.6)",
         "text-halo-width": [
@@ -5251,9 +5257,9 @@
         "text-size": ["interpolate", ["linear"], ["zoom"], 10, 14, 16, 24]
       },
       "paint": {
-        "text-color": "rgba(119, 178, 199, 1)",
+        "text-color": "rgba(133, 141, 156, 0.7)",
         "text-halo-blur": 1,
-        "text-halo-color": "rgba(242, 242, 242, 0.6)",
+        "text-halo-color": "rgba(172, 172, 172, 0.1)",
         "text-halo-width": 1
       }
     },
@@ -5348,7 +5354,7 @@
         ]
       },
       "paint": {
-        "text-color": "rgba(70, 130, 25, 0.9)",
+        "text-color": "rgba(89, 91, 89, 0.88)",
         "text-halo-blur": 1,
         "text-halo-color": "rgba(255, 255, 255, 0.8)",
         "text-halo-width": 1
