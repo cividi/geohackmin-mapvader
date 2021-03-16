@@ -404,14 +404,14 @@
           ["linear"],
           ["zoom"],
           10,
-          "rgba(206, 218, 222, 1)",
+          "rgba(215, 222, 227, 1)",
           16,
           [
             "match",
             ["get", "class"],
             ["river", "canal"],
-            "rgba(206, 218, 222, 1)",
-            "rgba(206, 218, 222, 1)"
+            "rgba(215, 222, 227, 1)",
+            "rgba(215, 222, 227, 1)"
           ]
         ],
         "line-offset": 0,
@@ -985,7 +985,7 @@
       "layout": {"visibility": "visible"},
       "paint": {
         "line-blur": 0.5,
-        "line-color": "rgba(189, 193, 225, 1)",
+        "line-color": "rgba(215, 222, 227, 1)",
         "line-opacity": [
           "interpolate",
           ["exponential", 1.5],
@@ -1124,9 +1124,7 @@
       },
       "paint": {
         "line-blur": 1,
-        "line-color": {
-          "stops": [[6, "hsl(300, 55%, 80%)"], [9, "hsl(315, 40%, 85%)"]]
-        },
+        "line-color": {"stops": [[6, "#BF9CBF"], [9, "#BF9CBF"]]},
         "line-dasharray": [1.5, 2.5],
         "line-opacity": {"stops": [[13, 1], [14, 0.7]]},
         "line-width": [
@@ -1166,11 +1164,11 @@
         "line-blur": 1,
         "line-color": {
           "stops": [
-            [6, "rgba(224, 220, 224, 1)"],
-            [9, "rgba(224, 220, 224, 1)"]
+            [6, "rgba(191, 156, 191, 1)"],
+            [9, "rgba(191, 156, 191, 1)"]
           ]
         },
-        "line-opacity": {"stops": [[13, 1], [14, 0.8]]},
+        "line-opacity": {"stops": [[1, 1], [14, 0.8]]},
         "line-width": [
           "interpolate",
           ["linear"],
@@ -1527,6 +1525,7 @@
       "source-layer": "construct",
       "minzoom": 14,
       "filter": ["all", ["==", "class", "lock"]],
+      "layout": {"visibility": "visible"},
       "paint": {
         "line-blur": 0.4,
         "line-color": "hsl(220, 10%, 67%)",
@@ -1541,6 +1540,7 @@
       "source-layer": "construct",
       "minzoom": 13,
       "filter": ["all", ["!=", "class", "lock"]],
+      "layout": {"visibility": "visible"},
       "paint": {
         "fill-color": [
           "interpolate",
@@ -2196,7 +2196,7 @@
       "layout": {"visibility": "visible"},
       "paint": {
         "line-blur": 0.4,
-        "line-color": "rgba(105, 187, 218, 1)",
+        "line-color": "rgba(133, 141, 156, 0.7)",
         "line-dasharray": {
           "stops": [
             [12, [6, 2]],
@@ -2232,7 +2232,7 @@
       "layout": {"visibility": "visible"},
       "paint": {
         "line-blur": 0.4,
-        "line-color": "rgba(197, 204, 255, 1)",
+        "line-color": "rgba(133, 141, 156, 0.7)",
         "line-dasharray": {
           "stops": [
             [12, [3, 1]],
@@ -2453,7 +2453,7 @@
       "minzoom": 15,
       "layout": {"visibility": "visible"},
       "paint": {
-        "line-color": "hsl(220, 10%, 67%)",
+        "line-color": "rgba(137, 137, 137, 1)",
         "line-opacity": [
           "interpolate",
           ["linear"],
@@ -3511,9 +3511,7 @@
           18,
           0.4
         ],
-        "line-color": {
-          "stops": [[7, "rgba(0, 0, 0, 1)"], [15, "rgba(0, 0, 0, 1)"]]
-        },
+        "line-color": {"stops": [[5, "rgba(0, 0, 0, 1)"], [12, "#898989"]]},
         "line-opacity": [
           "interpolate",
           ["linear"],
@@ -3646,7 +3644,7 @@
         "visibility": "visible"
       },
       "paint": {
-        "icon-color": "#8",
+        "icon-color": "#898989",
         "icon-opacity": 0.8,
         "text-color": "rgba(137, 137, 137, 1)",
         "text-halo-blur": 1,
@@ -3894,7 +3892,7 @@
           18,
           0.4
         ],
-        "line-color": {"stops": [[7, "#000000"], [15, "#000000"]]},
+        "line-color": {"stops": [[5, "#898989"], [12, "#898989"]]},
         "line-opacity": [
           "interpolate",
           ["linear"],
@@ -4037,7 +4035,7 @@
         "text-size": ["interpolate", ["linear"], ["zoom"], 10, 11, 16, 20]
       },
       "paint": {
-        "text-color": "rgba(172, 172, 172, 1)",
+        "text-color": "rgba(133, 141, 156, 0.7)",
         "text-halo-blur": 1,
         "text-halo-color": "rgba(172, 172, 172, 0.1)",
         "text-halo-width": 1
@@ -5440,9 +5438,9 @@
       },
       "paint": {
         "icon-opacity": ["step", ["zoom"], 1, 11, 0],
-        "text-color": "rgba(64, 64, 64, 1)",
+        "text-color": "rgba(0, 0, 0, 1)",
         "text-halo-blur": 1,
-        "text-halo-color": "rgba(242, 242, 242, 0.6)",
+        "text-halo-color": "rgba(172, 172, 172, 0.1)",
         "text-halo-width": [
           "interpolate",
           ["cubic-bezier", 0, 0.75, 0.25, 1],
@@ -5473,9 +5471,9 @@
         "visibility": "visible"
       },
       "paint": {
-        "text-color": "rgba(145, 70, 145, 0.9)",
+        "text-color": "rgba(0, 0, 0, 1)",
         "text-halo-blur": 1,
-        "text-halo-color": "rgba(255, 255, 255, 0.8)",
+        "text-halo-color": "rgba(172, 172, 172, 0.1)",
         "text-halo-width": 1,
         "text-opacity": ["interpolate", ["linear"], ["zoom"], 6, 1, 7, 0]
       }
