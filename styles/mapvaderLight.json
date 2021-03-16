@@ -69,7 +69,7 @@
       "metadata": {"maputnik:comment": "color: rgb(191,138,64)"},
       "source": "swissmaptiles",
       "source-layer": "contour_line",
-      "minzoom": 13,
+      "minzoom": 6,
       "filter": ["all", ["!in", "class", "rock", "ice", "water"]],
       "layout": {"visibility": "visible"},
       "paint": {
@@ -747,7 +747,7 @@
       },
       "paint": {
         "text-color": "#A1A1A1",
-        "text-halo-blur": 0.5,
+        "text-halo-blur": 0.1,
         "text-halo-color": "rgba(238, 238, 238, .8)",
         "text-halo-width": 2,
         "text-opacity": [
@@ -1495,7 +1495,7 @@
       },
       "paint": {
         "line-blur": 0.4,
-        "line-color": "rgba(140, 140, 140, 1)",
+        "line-color": "rgba(255, 255, 255, 1)",
         "line-dasharray": {
           "stops": [
             [14, [1, 0.6]],
@@ -1707,7 +1707,7 @@
       },
       "paint": {
         "line-blur": {"stops": [[15, 0.1], [20, 0.4]]},
-        "line-color": "rgba(137, 137, 137, 1)",
+        "line-color": "rgba(255, 255, 255, 1)",
         "line-dasharray": {
           "stops": [
             [14, [3, 1]],
@@ -1787,7 +1787,7 @@
       "layout": {
         "line-cap": "round",
         "line-join": "round",
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "line-blur": {"stops": [[7, 3], [8, 0.4]]},
@@ -1852,17 +1852,17 @@
             "match",
             ["get", "class"],
             ["motorway"],
-            ["match", ["get", "ramp"], 1, 3.5, 5.5],
+            ["match", ["get", "ramp"], 1, 2.5, 5],
             ["trunk"],
-            ["match", ["get", "oneway"], 1, 5.5, 5.5],
+            ["match", ["get", "oneway"], 1, 5, 5],
             ["primary"],
-            5.5,
-            ["secondary"],
             5,
+            ["secondary"],
+            4.5,
             ["tertiary"],
-            4,
+            3.25,
             ["minor"],
-            3,
+            2.5,
             0
           ],
           15,
@@ -1932,7 +1932,7 @@
       "filter": ["all", ["in", "class", "parking"]],
       "layout": {"visibility": "visible"},
       "paint": {
-        "fill-color": "rgba(255, 255, 255, 1)",
+        "fill-color": "rgba(215, 215, 215, 1)",
         "fill-opacity": {"stops": [[14, 0], [15, 1]]}
       }
     },
@@ -2043,15 +2043,15 @@
             "match",
             ["get", "class"],
             ["motorway"],
-            ["match", ["get", "ramp"], 1, 1.5, 3.75],
+            ["match", ["get", "ramp"], 1, 1.5, 0.5],
             ["trunk"],
             ["match", ["get", "oneway"], 1, 3.75, 3.75],
             ["primary"],
-            3.75,
+            2.75,
             ["secondary"],
-            3.25,
+            1.5,
             ["tertiary"],
-            2.25,
+            0.5,
             0
           ],
           13,
@@ -2063,13 +2063,13 @@
             ["trunk"],
             ["match", ["get", "oneway"], 1, 4.25, 4.25],
             ["primary"],
-            4.25,
+            3,
             ["secondary"],
-            3.75,
+            2.2,
             ["tertiary"],
-            2.75,
+            1.5,
             ["minor"],
-            1.75,
+            0.5,
             0
           ],
           15,
@@ -2081,46 +2081,46 @@
             ["trunk"],
             ["match", ["get", "oneway"], 1, 6.5, 7.5],
             ["primary"],
-            7.5,
-            ["secondary"],
-            6.5,
-            ["tertiary", "rail"],
             5.5,
-            ["minor"],
+            ["secondary"],
             3.5,
-            2.5
+            ["tertiary", "rail"],
+            2,
+            ["minor"],
+            1,
+            0.1
           ],
           16,
           [
             "match",
             ["get", "class"],
             ["motorway"],
-            ["match", ["get", "ramp"], 1, 8.5, 10.5],
+            ["match", ["get", "ramp"], 5, 22, 3],
             ["trunk"],
             ["match", ["get", "oneway"], 1, 10.5, 13.5],
             ["primary"],
-            13.5,
+            1,
             ["secondary"],
-            11.5,
+            0.5,
             ["tertiary", "rail"],
-            9.5,
+            0.3,
             ["minor"],
-            7.5,
-            6.5
+            0.1,
+            0.1
           ],
           20,
           [
             "match",
             ["get", "class"],
             ["motorway", "trunk", "primary", "rail"],
-            117,
+            250,
             ["secondary"],
-            112,
+            210,
             ["tertiary"],
-            107,
+            170,
             ["minor"],
-            97,
-            92
+            80,
+            80
           ]
         ]
       }
@@ -2552,7 +2552,7 @@
       "layout": {
         "line-cap": "butt",
         "line-join": "round",
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "line-blur": 0.4,
@@ -2565,16 +2565,16 @@
             "match",
             ["get", "class"],
             ["motorway", "trunk"],
-            "#A1A1A1",
-            "#A1A1A1"
+            "#FFFFFF",
+            "#FFFFFF"
           ],
           15,
           [
             "match",
             ["get", "class"],
             ["motorway", "trunk"],
-            "#A1A1A1",
-            "#A1A1A1"
+            "#FFFFFF",
+            "#FFFFFF"
           ]
         ],
         "line-offset": 0,
@@ -2753,15 +2753,15 @@
             "match",
             ["get", "class"],
             ["motorway"],
-            ["match", ["get", "ramp"], 1, 1.5, 3.75],
+            ["match", ["get", "ramp"], 1, 1.5, 1.5],
             ["trunk"],
-            ["match", ["get", "oneway"], 1, 3.75, 3.75],
+            ["match", ["get", "oneway"], 0, 1.5, 3.75],
             ["primary"],
-            3.75,
+            2.75,
             ["secondary"],
-            3.25,
+            1.5,
             ["tertiary"],
-            2.25,
+            0.5,
             0
           ],
           13,
@@ -2773,13 +2773,13 @@
             ["trunk"],
             ["match", ["get", "oneway"], 1, 4.25, 4.25],
             ["primary"],
-            4.25,
+            3,
             ["secondary"],
-            3.75,
+            2.2,
             ["tertiary"],
-            2.75,
+            1.5,
             ["minor"],
-            1.75,
+            0.5,
             0
           ],
           15,
@@ -2791,16 +2791,16 @@
             ["trunk"],
             ["match", ["get", "oneway"], 1, 6.5, 7.5],
             ["primary"],
-            7.5,
-            ["secondary"],
-            6.5,
-            ["tertiary", "rail"],
             5.5,
-            ["minor"],
+            ["secondary"],
             3.5,
+            ["tertiary", "rail"],
+            2,
+            ["minor"],
+            1,
             ["transit", "track", "path"],
-            2.5,
-            2.5
+            0.1,
+            0.1
           ],
           16,
           [
@@ -2811,16 +2811,16 @@
             ["trunk"],
             ["match", ["get", "oneway"], 1, 10.5, 13.5],
             ["primary"],
-            13.5,
+            1,
             ["secondary"],
-            11.5,
+            0.5,
             ["tertiary", "rail"],
-            9.5,
+            0.3,
             ["minor"],
-            7.5,
+            0.1,
             ["transit", "track", "path"],
-            6.5,
-            6.5
+            0.1,
+            0.1
           ],
           20,
           [
@@ -3086,7 +3086,7 @@
       "layout": {
         "line-cap": "butt",
         "line-join": "round",
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "line-blur": 0.4,
@@ -3099,16 +3099,16 @@
             "match",
             ["get", "class"],
             ["motorway", "trunk"],
-            "#A1A1A1",
-            "#A1A1A1"
+            "#FFFFFF",
+            "#FFFFFF"
           ],
           15,
           [
             "match",
             ["get", "class"],
             ["motorway", "trunk"],
-            "#A1A1A1",
-            "#A1A1A1"
+            "#FFFFFF",
+            "#FFFFFF"
           ]
         ],
         "line-offset": 0,
@@ -3641,7 +3641,7 @@
           "literal",
           ["bottom-left", "top-left", "bottom-right", "top-right"]
         ],
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "icon-color": "#898989",
@@ -4920,7 +4920,7 @@
           20
         ],
         "text-transform": "none",
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "icon-opacity": [
@@ -5153,7 +5153,7 @@
           28
         ],
         "text-transform": "none",
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "icon-opacity": ["step", ["zoom"], 1, 13, 0],
